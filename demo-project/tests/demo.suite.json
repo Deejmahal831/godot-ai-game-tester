@@ -1,0 +1,48 @@
+{
+  "name": "AI Tester Demo — regression suite",
+  "project": "..",
+  "scene": "res://main.tscn",
+  "isolation": "reload",
+  "tests": [
+    {
+      "name": "score button increments the score and label",
+      "steps": [
+        { "comment": "fresh scene: score starts at 0" },
+        { "expect": "node('.').score", "eq": 0, "as": "score starts at 0" },
+        { "do": "click_node", "node": "ScoreButton" },
+        { "expect": "node('.').score", "eq": 1, "as": "one click -> score 1" },
+        { "do": "click_node", "node": "ScoreButton" },
+        { "expect": "node('.').score", "eq": 2, "as": "two clicks -> score 2" },
+        { "expect": "node('ScoreLabel').text", "contains": "Score: 2", "as": "label reflects score" },
+        { "no_errors": true }
+      ]
+    },
+    {
+      "name": "player moves right with the ui_right action",
+      "steps": [
+        { "expect": "node('Player').position.x", "near": 375, "tol": 2, "as": "player starts centered" },
+        { "do": "input_action", "action": "ui_right", "mode": "hold", "duration": 0.6 },
+        { "do": "wait", "frames": 5 },
+        { "expect": "node('Player').position.x", "gt": 420, "as": "moved right" },
+        { "no_errors": true }
+      ]
+    },
+    {
+      "name": "state resets between tests (isolation works)",
+      "steps": [
+        { "expect": "node('.').score", "eq": 0, "as": "score reset to 0 for a new test" },
+        { "expect": "node('Player').position.x", "near": 375, "tol": 2, "as": "player back at center" }
+      ]
+    },
+    {
+      "name": "typing into the name field works",
+      "steps": [
+        { "do": "click_node", "node": "NameEdit" },
+        { "do": "wait", "frames": 3 },
+        { "do": "input_text", "text": "Claude" },
+        { "do": "wait", "frames": 3 },
+        { "expect": "node('NameEdit').text", "eq": "Claude", "as": "typed text landed in the LineEdit" }
+      ]
+    }
+  ]
+}

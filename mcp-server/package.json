@@ -1,0 +1,22 @@
+{
+  "name": "godot-ai-game-tester",
+  "version": "0.1.0",
+  "description": "MCP server that lets any AI agent launch, observe, and play a Godot game (windowed, not headless).",
+  "type": "module",
+  "bin": {
+    "godot-ai-game-tester": "src/index.js"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "gifenc": "^1.0.3",
+    "pngjs": "^7.0.0",
+    "zod": "^3.24.0"
+  }
+}
